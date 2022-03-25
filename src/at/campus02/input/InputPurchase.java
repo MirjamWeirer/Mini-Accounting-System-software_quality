@@ -29,64 +29,25 @@ public class InputPurchase {
         // purchase number
         scanner.nextLine();
 
-        String number = inputHelper.readString();
-        int purchaseNo = 0;
-
-        try {
-            purchaseNo = Integer.parseInt(number);
-
-            //Wrong Purchase Number format (should be a 3-digit number)
-            if (purchaseNo > 999) {
-                throw new Exception("Unsuccessful. Invalid purchase Number");
-            }
+        int purchaseNo = inputHelper.readInt(1,999);
 
             if (purchases.containsKey(purchaseNo)) {
                 throw new Exception("Unsuccessful. Purchase order already exists");
             }
-        }
-        //If String given for Purchase Number
-        catch (NumberFormatException e) {
-            throw new Exception("Unsuccessful. Invalid purchase Number Format");
-        }
-
-        // purchase number
 
         // TRN no.
         System.out.println("Enter TRN No.");
-        int trn_number = scanner.nextInt();
-        if (trn_number <= 0) {
-            throw new Exception("Unsuccessful. TRN number should be of 6 digits");
-        }
-        int noOfDigits = String.valueOf(trn_number).length();
-        if (noOfDigits != 6) {
-            throw new Exception("Unsuccessful. TRN number should be of 6 digits");
-        }
-        //TRN no.
+        int trn_number = inputHelper.readInt(100000,999999);
 
         // Date
         System.out.println("*Date*");
         System.out.println("Enter Day: ");
-        Date currentDate = new Date();
-
-        int day = scanner.nextInt();
-        if (day < 1 || day > 31) {
-            throw new Exception("Unsuccessful. Invalid purchase date.");
-        }
-
+        int day = inputHelper.readInt(1,31);
         System.out.println("Enter Month: ");
-        int month = scanner.nextInt();
-        if (month < 1 || month > 12) {
-            throw new Exception("Unsuccessful. Invalid purchase date.");
-        }
-
+        int month = inputHelper.readInt(1,12);
         System.out.println("Enter Year: ");
-        int year = scanner.nextInt();
-        if (year <= 0) {
-            throw new Exception("Unsuccessful. Invalid purchase date.");
-        }
-
-        // Date
-        Date purchaseDate = new Date(year, month, day);
+        int year = inputHelper.readInt(1900,2200);
+        Date purchaseDate = new Date(year, month-1, day);
 
         // Supplier ID
         System.out.println("Enter Supplier ID");
@@ -95,24 +56,11 @@ public class InputPurchase {
 
         // Item No
         System.out.println("Enter Item No : ");
-        //sc.nextLine();
-        String itemnotemp = inputHelper.readString();
-
-        int itemno = Integer.parseInt(itemnotemp);
+        int itemno = inputHelper.readInt(1,Integer.MAX_VALUE);
 
         //Item quanitity
         System.out.println("Enter Item quantity : ");
-        //sc.nextLine();
-        String quanitity_temp = inputHelper.readString();
-
-        int quantity;
-        try {
-            quantity = Integer.parseInt(quanitity_temp);
-        }
-        //If String given for Purchase Number
-        catch (NumberFormatException e) {
-            throw new Exception("Unsuccessful. Quantity should be in numerical values");
-        }
+        int quantity = inputHelper.readInt(1,Integer.MAX_VALUE);
 
         // Item object creation
         Item itemObject = new Item(itemno, quantity);
