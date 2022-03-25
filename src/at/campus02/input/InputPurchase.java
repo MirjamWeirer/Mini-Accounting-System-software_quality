@@ -186,7 +186,7 @@ public class InputPurchase {
       return newPurchase;
     }
 
-  public  int removePurchase(Map<Integer,Purchase> list) {
+  public  Purchase removePurchase(Map<Integer,Purchase> purchases) {
       System.out.println("*** Remove Purchase ***");
       System.out.println("Enter Purchase Number");
 
@@ -195,32 +195,30 @@ public class InputPurchase {
       //If input empty
       if (number.isEmpty() || number.equals(" ")) {
         System.out.println("Unsuccessful. Cannot leave Purchase No field empty");
-        return -1;
+        return null;
       }
 
       try {
-        int temp = Integer.parseInt(number);
+        int purchasesNo = Integer.parseInt(number);
 
         //Wrong Purchase Number format (should be a 3-digit number
-        if (temp > 999) {
+        if (purchasesNo > 999) {
           System.out.println("Unsuccessful. Invalid purchase Number");
-          return -1;
+          return null;
         }
 
-        for (int i = 0; i < list.size(); i++) {
-          if (list.get(i).getPurchaseNo() == temp) {
-            System.out.println("Purchase order No " + temp + " Deleted\n");
-            return i;
-          }
+        if (purchases.containsKey(purchasesNo)){
+            return purchases.get(purchasesNo);
+        }else {
+            System.out.println("Unsuccessful. Purchase order does not exist");
+            return null;
         }
-        System.out.println("Unsuccessful. Purchase order does not exist");
       }
       //If String given for Purchase Number
       catch (NumberFormatException e) {
         System.out.println("Unsuccessful. Invalid purchase Number Format");
       }
-
-      return -1;
+      return null;
     }
 
   public void viewPurchase(Map <Integer, Purchase > list) {

@@ -20,12 +20,10 @@ public class InputSupplier {
       System.out.println("Enter supplierID: ");
       String suppID = sc.nextLine();
 
-      for (int i = 0; i < suparr.size(); i++) {
-
-        if (suparr.get(i).getSupplierId() == suppID) {
+        if (suparr.containsKey(suppID)) {
           throw new IdDoesNotExistException("Error: Supplier not added, SupplierID already exists in the system.");
         }
-      }
+
 
       //If supplier field is empty
       if (suppID.isEmpty() || suppID.equals(" ")) {
@@ -114,7 +112,7 @@ public class InputSupplier {
 
     } //Function Add Supp End
 
-    public int deleteSupplier(Map <String, Supplier > list) {
+    public Supplier deleteSupplier(Map <String, Supplier > suppliers) {
       System.out.println("*** delete Supplier ***");
       System.out.println("Enter Supplier ID");
       scanner.nextLine();
@@ -123,18 +121,17 @@ public class InputSupplier {
       //If supplier field is empty
       if (id.isEmpty() || id.equals(" ")) {
         System.out.println("Error: The input field cannot be empty/blank.");
-        return -1;
+        return null;
       } //if end
+      
+      if (suppliers.containsKey(id)){
+        System.out.println("Supplier successfully deleted");
+        return suppliers.get(id);
+      }else{
+        System.out.println("Supplier does not exist in the database so it isn't deleted.");
+        return null;
+      }
 
-      for (int i = 0; i < list.size(); i++) {
-        if (list.get(i).getSupplierId().equals(id)) {
-          System.out.println("Supplier successfully deleted");
-          return i;
-        } //if end
-      } //for end
-
-      System.out.println("Supplier does not exist in the database so it isn't deleted.");
-      return -1;
     } //Function Delete Supp End
 
     public void viewSupplier(Map <String, Supplier > list) {
