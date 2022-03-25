@@ -6,6 +6,7 @@ import at.campus02.model.Supplier;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 import java.util.Scanner;
 
 public class InputPurchase {
@@ -16,7 +17,7 @@ public class InputPurchase {
     this.scanner = scanner;
   }
 
-  public  Purchase addPurchase(ArrayList< Purchase > list, ArrayList <Supplier> list2) throws Exception {
+  public  Purchase addPurchase(Map<Integer, Purchase > list, Map <String,Supplier> list2) throws Exception {
       System.out.println("*** Add Purchase ***");
       System.out.println("Enter Purchase Number: ");
       // purchase number
@@ -37,10 +38,8 @@ public class InputPurchase {
           throw new Exception("Unsuccessful. Invalid purchase Number");
         }
 
-        for (Purchase purchase: list) {
-          if (purchase.getPurchaseNo() == purchaseNo) {
+        if (list.containsKey(purchaseNo)){
             throw new Exception("Unsuccessful. Purchase order already exists");
-          }
         }
       }
       //If String given for Purchase Number
@@ -96,13 +95,7 @@ public class InputPurchase {
       if (id.isEmpty() || id.equals(" ")) {
         throw new Exception("Error: No supplier details displayed, the input field cannot be empty/blank");
       }
-      int count = 0;
-      for (Supplier supplier: list2) {
-        count++;
-        if ((supplier.getSupplierId().equals(id))) {
-          break;
-        }
-      }
+
 
       // Item No
       System.out.println("Enter Item No : ");
@@ -188,11 +181,12 @@ public class InputPurchase {
       double vat = 0.05 * cost;
 
       // newPurchase Creation
-      Purchase newPurchase = new Purchase(purchaseNo, trn_number, purchaseDate, list2.get(count), itemObject, mode, purchaseDueDate, cost, vat);
+      Purchase newPurchase = new Purchase(purchaseNo, trn_number, purchaseDate,
+              list2.get(id), itemObject, mode, purchaseDueDate, cost, vat);
       return newPurchase;
     }
 
-  public  int removePurchase(ArrayList <Purchase> list) {
+  public  int removePurchase(Map<Integer,Purchase> list) {
       System.out.println("*** Remove Purchase ***");
       System.out.println("Enter Purchase Number");
 
@@ -229,7 +223,7 @@ public class InputPurchase {
       return -1;
     }
 
-  public void viewPurchase(ArrayList < Purchase > list) {
+  public void viewPurchase(Map <Integer, Purchase > list) {
       System.out.println("*** View Purchase ***");
       System.out.println("Enter Purchase Number");
 
@@ -251,14 +245,13 @@ public class InputPurchase {
           return;
         }
 
-        for (Purchase purchase: list) {
-          if (purchase.getPurchaseNo() == temp) {
+
+          if (list.containsKey(temp)) {
             System.out.println("Purchase Information");
-            System.out.println(purchase.toString());
-            return;
+            System.out.println(list.get(temp));
+          }else {
+            System.out.println("Unsuccessful. Purchase order does not exist");
           }
-        }
-        System.out.println("Unsuccessful. Purchase order does not exist");
       }
       //If String given for Purchase Number
       catch (NumberFormatException e) {

@@ -3,6 +3,7 @@ package at.campus02.input;
 import at.campus02.model.Supplier;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
 
 public class InputSupplier { 
@@ -13,7 +14,7 @@ public class InputSupplier {
         this.scanner = scanner;
     }
 
-    public Supplier addSupplier(ArrayList< Supplier > suparr) throws Exception {
+    public Supplier addSupplier(Map<String, Supplier> suparr) throws Exception {
       Scanner sc = new Scanner(System.in);
       System.out.println("Enter the supplier details: ");
       System.out.println("Enter supplierID: ");
@@ -107,13 +108,13 @@ public class InputSupplier {
       }
 
       Supplier s1 = new Supplier(suppID, companyName, number, email, tradeLicenseNo, vatRn);
-      suparr.add(s1);
+      suparr.put(s1.getSupplierId(),s1);
       System.out.println("Supplier added successfully");
       return s1;
 
     } //Function Add Supp End
 
-    public int deleteSupplier(ArrayList < Supplier > list) {
+    public int deleteSupplier(Map <String, Supplier > list) {
       System.out.println("*** delete Supplier ***");
       System.out.println("Enter Supplier ID");
       scanner.nextLine();
@@ -136,7 +137,7 @@ public class InputSupplier {
       return -1;
     } //Function Delete Supp End
 
-    public void viewSupplier(ArrayList < Supplier > list) {
+    public void viewSupplier(Map <String, Supplier > list) {
       System.out.println("*** View Supplier ***");
       System.out.println("Enter Supplier ID");
       scanner.nextLine();
@@ -148,13 +149,12 @@ public class InputSupplier {
         return;
       } //if end
 
-      for (Supplier supplier: list) {
-        if (supplier.getSupplierId().equals(id)) {
+
+        if (list.containsKey(id)) {
           System.out.println("Supplier Information");
-          System.out.println(supplier.toString());
-          return;
-        } //if end
-      } //for end
-      System.out.println("Read/View Unsuccessful: Supplier ID does not exist");
+          System.out.println(list.get(id));
+        }else {
+          System.out.println("Read/View Unsuccessful: Supplier ID does not exist");
+        }
     } //ViewSupplier End
 }
