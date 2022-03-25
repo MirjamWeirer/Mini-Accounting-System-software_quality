@@ -10,56 +10,37 @@ public class InputSupplier {
   
     private Scanner scanner;
     private Map<String,Supplier> suppliers;
+    private final InputHelper inputHelper;
 
   public InputSupplier(Scanner scanner, Map<String, Supplier> suppliers) {
     this.scanner = scanner;
     this.suppliers = suppliers;
+    inputHelper = new InputHelper(scanner);
   }
 
   public Supplier addSupplier() throws Exception {
       Scanner sc = new Scanner(System.in);
       System.out.println("Enter the supplier details: ");
       System.out.println("Enter supplierID: ");
-      String suppID = sc.nextLine();
+      String suppID = inputHelper.readString();
 
         if (suppliers.containsKey(suppID)) {
           throw new IdDoesNotExistException("Error: Supplier not added, SupplierID already exists in the system.");
         }
 
-
-      //If supplier field is empty
-      if (suppID.isEmpty() || suppID.equals(" ")) {
-        throw new Exception("Error: The Supplier ID input field cannot be empty/blank");
-      }
-
       System.out.println("Enter companyName: ");
 
-      String companyName = sc.nextLine();
-
-      if (companyName.isEmpty() || companyName.equals(" ")) {
-        throw new Exception("Error: Supplier not added, Company Name is left blank");
-
-      }
+      String companyName = inputHelper.readString();
 
       System.out.println("Enter Contact Number: ");
-      String number = sc.nextLine();
-
-      if (number.isEmpty() || number.equals(" ")) {
-        throw new Exception("Error: Supplier not added, Contact Details Number is left blank.");
-
-      }
+      String number = inputHelper.readString();
 
       if (!(number.substring(0, 2).equals("05")) || number.length() != 10) {
         throw new Exception("Error: Supplier not added, Number needs to be of the format “05XXXXXXXX” where X are numbers.");
       }
 
       System.out.println("Enter email: ");
-      String email = sc.nextLine();
-
-      if (email.isEmpty() || email.equals(" ")) {
-        throw new Exception("Error: Supplier not added, Email is left blank.");
-
-      }
+      String email = inputHelper.readString();
 
       int atCount = 0;
       int Atindex = 0;
@@ -117,13 +98,7 @@ public class InputSupplier {
       System.out.println("*** delete Supplier ***");
       System.out.println("Enter Supplier ID");
       scanner.nextLine();
-      String id = scanner.nextLine();
-
-      //If supplier field is empty
-      if (id.isEmpty() || id.equals(" ")) {
-        System.out.println("Error: The input field cannot be empty/blank.");
-        return null;
-      } //if end
+      String id = inputHelper.readString();
       
       if (suppliers.containsKey(id)){
         System.out.println("Supplier successfully deleted");
@@ -139,13 +114,7 @@ public class InputSupplier {
       System.out.println("*** View Supplier ***");
       System.out.println("Enter Supplier ID");
       scanner.nextLine();
-      String id = scanner.nextLine();
-
-      //If supplier field is empty
-      if (id.isEmpty() || id.equals(" ")) {
-        System.out.println("Error: No supplier details displayed, the input field cannot be empty/blank");
-        return;
-      } //if end
+      String id = inputHelper.readString();
 
 
         if (suppliers.containsKey(id)) {
