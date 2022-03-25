@@ -12,12 +12,16 @@ import java.util.Scanner;
 public class InputPurchase {
 
   private Scanner scanner;
+  private Map<Integer, Purchase> purchases;
+  private Map<String,Supplier> supplier;
 
-  public InputPurchase(Scanner scanner) {
-    this.scanner = scanner;
-  }
+    public InputPurchase(Scanner scanner, Map<Integer, Purchase> purchases, Map<String, Supplier> supplier) {
+        this.scanner = scanner;
+        this.purchases = purchases;
+        this.supplier = supplier;
+    }
 
-  public  Purchase addPurchase(Map<Integer, Purchase > list, Map <String,Supplier> list2) throws Exception {
+    public  Purchase addPurchase() throws Exception {
       System.out.println("*** Add Purchase ***");
       System.out.println("Enter Purchase Number: ");
       // purchase number
@@ -38,7 +42,7 @@ public class InputPurchase {
           throw new Exception("Unsuccessful. Invalid purchase Number");
         }
 
-        if (list.containsKey(purchaseNo)){
+        if (purchases.containsKey(purchaseNo)){
             throw new Exception("Unsuccessful. Purchase order already exists");
         }
       }
@@ -182,11 +186,11 @@ public class InputPurchase {
 
       // newPurchase Creation
       Purchase newPurchase = new Purchase(purchaseNo, trn_number, purchaseDate,
-              list2.get(id), itemObject, mode, purchaseDueDate, cost, vat);
+              supplier.get(id), itemObject, mode, purchaseDueDate, cost, vat);
       return newPurchase;
     }
 
-  public  Purchase removePurchase(Map<Integer,Purchase> purchases) {
+  public  Purchase removePurchase() {
       System.out.println("*** Remove Purchase ***");
       System.out.println("Enter Purchase Number");
 
@@ -208,6 +212,7 @@ public class InputPurchase {
         }
 
         if (purchases.containsKey(purchasesNo)){
+            System.out.println("Purchases successfully deleted");
             return purchases.get(purchasesNo);
         }else {
             System.out.println("Unsuccessful. Purchase order does not exist");
@@ -221,7 +226,7 @@ public class InputPurchase {
       return null;
     }
 
-  public void viewPurchase(Map <Integer, Purchase > list) {
+  public void viewPurchase() {
       System.out.println("*** View Purchase ***");
       System.out.println("Enter Purchase Number");
 
@@ -244,9 +249,9 @@ public class InputPurchase {
         }
 
 
-          if (list.containsKey(temp)) {
+          if (purchases.containsKey(temp)) {
             System.out.println("Purchase Information");
-            System.out.println(list.get(temp));
+            System.out.println(purchases.get(temp));
           }else {
             System.out.println("Unsuccessful. Purchase order does not exist");
           }

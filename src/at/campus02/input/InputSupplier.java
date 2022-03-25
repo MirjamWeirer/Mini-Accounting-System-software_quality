@@ -9,18 +9,20 @@ import java.util.Scanner;
 public class InputSupplier { 
   
     private Scanner scanner;
+    private Map<String,Supplier> suppliers;
 
-    public InputSupplier(Scanner scanner) {
-        this.scanner = scanner;
-    }
+  public InputSupplier(Scanner scanner, Map<String, Supplier> suppliers) {
+    this.scanner = scanner;
+    this.suppliers = suppliers;
+  }
 
-    public Supplier addSupplier(Map<String, Supplier> suparr) throws Exception {
+  public Supplier addSupplier() throws Exception {
       Scanner sc = new Scanner(System.in);
       System.out.println("Enter the supplier details: ");
       System.out.println("Enter supplierID: ");
       String suppID = sc.nextLine();
 
-        if (suparr.containsKey(suppID)) {
+        if (suppliers.containsKey(suppID)) {
           throw new IdDoesNotExistException("Error: Supplier not added, SupplierID already exists in the system.");
         }
 
@@ -28,7 +30,6 @@ public class InputSupplier {
       //If supplier field is empty
       if (suppID.isEmpty() || suppID.equals(" ")) {
         throw new Exception("Error: The Supplier ID input field cannot be empty/blank");
-
       }
 
       System.out.println("Enter companyName: ");
@@ -106,13 +107,13 @@ public class InputSupplier {
       }
 
       Supplier s1 = new Supplier(suppID, companyName, number, email, tradeLicenseNo, vatRn);
-      suparr.put(s1.getSupplierId(),s1);
+      suppliers.put(s1.getSupplierId(),s1);
       System.out.println("Supplier added successfully");
       return s1;
 
     } //Function Add Supp End
 
-    public Supplier deleteSupplier(Map <String, Supplier > suppliers) {
+    public Supplier deleteSupplier() {
       System.out.println("*** delete Supplier ***");
       System.out.println("Enter Supplier ID");
       scanner.nextLine();
@@ -134,7 +135,7 @@ public class InputSupplier {
 
     } //Function Delete Supp End
 
-    public void viewSupplier(Map <String, Supplier > list) {
+    public void viewSupplier() {
       System.out.println("*** View Supplier ***");
       System.out.println("Enter Supplier ID");
       scanner.nextLine();
@@ -147,9 +148,9 @@ public class InputSupplier {
       } //if end
 
 
-        if (list.containsKey(id)) {
+        if (suppliers.containsKey(id)) {
           System.out.println("Supplier Information");
-          System.out.println(list.get(id));
+          System.out.println(suppliers.get(id));
         }else {
           System.out.println("Read/View Unsuccessful: Supplier ID does not exist");
         }

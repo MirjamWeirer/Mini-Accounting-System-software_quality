@@ -34,8 +34,8 @@ public class MainClass {
 		       """);
       int choice = 0;
 
-      InputPurchase inputPurchase = new InputPurchase(sc);
-      InputSupplier inputSupplier = new InputSupplier(sc);
+      InputPurchase inputPurchase = new InputPurchase(sc, purchases,suppliers);
+      InputSupplier inputSupplier = new InputSupplier(sc,suppliers);
 
       while (true) {
         System.out.println("Enter your choice (1-6)");
@@ -43,8 +43,8 @@ public class MainClass {
         switch (choice) {
         case 1: {
           try {
-            Purchase p1 = inputPurchase.addPurchase(purchases, suppliers);
-            purchases.put(p1.getPurchaseNo(), p1); // remove if not call by refernece
+            Purchase p1 = inputPurchase.addPurchase();
+            purchases.put(p1.getPurchaseNo(), p1);
             break;
           } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -53,19 +53,19 @@ public class MainClass {
         }
 
         case 2:
-          Purchase purchase = inputPurchase.removePurchase(purchases);
+          Purchase purchase = inputPurchase.removePurchase();
           if (purchase != null) {
             purchases.remove(purchase.getPurchaseNo());
           }
           break;
 
         case 3:
-          inputPurchase.viewPurchase(purchases);
+          inputPurchase.viewPurchase();
           break;
 
         case 4: {
           try {
-            Supplier s1 = inputSupplier.addSupplier(suppliers);
+            Supplier s1 = inputSupplier.addSupplier();
             suppliers.put(s1.getSupplierId(),s1); // remove if not call by refernece
             break;
           } catch (Exception e) {
@@ -75,7 +75,7 @@ public class MainClass {
         }
 
         case 5:
-          Supplier supplier = inputSupplier.deleteSupplier(suppliers);
+          Supplier supplier = inputSupplier.deleteSupplier();
           if (supplier != null) {
             suppliers.remove(supplier.getSupplierId());
           }else{
@@ -84,7 +84,7 @@ public class MainClass {
           break;
 
         case 6:
-          inputSupplier.viewSupplier(suppliers);
+          inputSupplier.viewSupplier();
           break;
 
         default:
