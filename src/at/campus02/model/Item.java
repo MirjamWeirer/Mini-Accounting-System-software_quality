@@ -1,3 +1,5 @@
+package at.campus02.model;
+
 public class Item {
 
     private int itemNo;
@@ -29,7 +31,7 @@ public class Item {
     //To String
     @Override
     public String toString() {
-        return "Item{" +
+        return "at.campus02.model.Item{" +
                 "itemNo='" + itemNo + '\'' +
                 ", qty=" + qty +
                 '}';

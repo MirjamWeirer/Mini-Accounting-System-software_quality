@@ -1,3 +1,5 @@
+package at.campus02.model;
+
 public class Supplier {
 
     private String supplierId;
@@ -62,7 +64,7 @@ public class Supplier {
     //To String
     @Override
     public String toString() {
-        return "Supplier { \n" +
+        return "at.campus02.model.Supplier { \n" +
                 "supplierId = " + supplierId +
                 "\n\tcompanyName = '" + companyName + '\'' +
                 "\n\tnumber = '" + number + '\'' +

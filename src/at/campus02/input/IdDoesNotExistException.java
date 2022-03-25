@@ -1,3 +1,5 @@
+package at.campus02.input;
+
 public class IdDoesNotExistException extends Exception{
 private String message;
 

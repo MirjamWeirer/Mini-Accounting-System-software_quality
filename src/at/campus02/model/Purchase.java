@@ -1,4 +1,5 @@
-import java.util.ArrayList;
+package at.campus02.model;
+
 import java.util.Date;
 
 public class Purchase {
@@ -87,7 +88,7 @@ public class Purchase {
     //To String
     @Override
     public String toString() {
-        return "Purchase { \n" +
+        return "at.campus02.model.Purchase { \n" +
                 "purchaseNo = " + purchaseNo +
                 "\n\ttrnNo = " + trnNo +
                 "\n\tdate = " + date +

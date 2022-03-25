@@ -2,7 +2,7 @@
 
 This program consists of 2 subsections (out of the 9 planned):
 - Purchases
-- Supplier
+- at.campus02.model.Supplier
 
 ## Sections
 Each section has 3 options
